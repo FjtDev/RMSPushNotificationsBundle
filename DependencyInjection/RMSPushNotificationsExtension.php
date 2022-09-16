@@ -29,7 +29,7 @@ class RMSPushNotificationsExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $this->container = $container;
-        $this->kernelRootDir = $container->getParameterBag()->get("kernel.root_dir");
+        $this->kernelRootDir = $container->getParameterBag()->get("kernel.project_dir");
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
