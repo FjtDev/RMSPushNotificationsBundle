@@ -20,6 +20,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder("rms_push_notifications");
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $this->root = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config < 4.2
+            $this->root = $treeBuilder->root('rms_push_notifications');
+        }
 
         $this->addAndroid();
         $this->addiOS();
