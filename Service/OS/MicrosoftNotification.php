@@ -67,4 +67,12 @@ class MicrosoftNotification implements OSNotificationServiceInterface
 
         return $response->isSuccessful();
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'rms_push_notifications.os.windowsphone';
+    }
 }

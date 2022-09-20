@@ -11,7 +11,7 @@
     <services>
 
         <!-- Android (C2DM) -->
-        <service id="rms_push_notifications.android.c2dm" class="%rms_push_notifications.android.c2dm.class%" public="false">
+        <service id="rms_push_notifications.android.c2dm" class="%rms_push_notifications.android.c2dm.class%" public="falseq">
             <argument>%rms_push_notifications.android.c2dm.username%</argument>
             <argument>%rms_push_notifications.android.c2dm.password%</argument>
             <argument>%rms_push_notifications.android.c2dm.source%</argument>

@@ -2,6 +2,7 @@
 
 namespace RMS\PushNotificationsBundle\Service\OS;
 
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Log\LoggerInterface;
 use RMS\PushNotificationsBundle\Exception\InvalidMessageTypeException,
     RMS\PushNotificationsBundle\Message\BlackberryMessage,
@@ -82,6 +83,14 @@ class BlackberryNotification implements OSNotificationServiceInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'rms_push_notifications.os.blackberry';
+    }
+
+    /**
      * Does the actual sending
      *
      * @param  \RMS\PushNotificationsBundle\Message\BlackberryMessage $message
@@ -91,7 +100,7 @@ class BlackberryNotification implements OSNotificationServiceInterface
     {
         $separator = "mPsbVQo0a68eIL3OAxnm";
         $body = $this->constructMessageBody($message, $separator);
-        $browser = new Browser(new Curl());
+        $browser = new Browser(new Curl(), new Psr17Factory());
         $browser->getClient()->setTimeout($this->timeout);
         $listener = new BasicAuthListener($this->appID, $this->password);
         $browser->addListener($listener);

@@ -5,6 +5,7 @@ namespace RMS\PushNotificationsBundle\Service;
 use RMS\PushNotificationsBundle\Device\Types;
 use RMS\PushNotificationsBundle\Message\MessageInterface;
 use RMS\PushNotificationsBundle\Service\OS\AppleNotification;
+use RMS\PushNotificationsBundle\Service\OS\OSNotificationServiceInterface;
 
 class Notifications
 {

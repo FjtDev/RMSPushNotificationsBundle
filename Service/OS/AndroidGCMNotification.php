@@ -10,6 +10,7 @@ use Buzz\Browser,
     Buzz\Client\AbstractCurl,
     Buzz\Client\Curl,
     Buzz\Client\MultiCurl;
+use Nyholm\Psr7\Factory\Psr17Factory;
 
 class AndroidGCMNotification implements OSNotificationServiceInterface
 {
@@ -77,14 +78,15 @@ class AndroidGCMNotification implements OSNotificationServiceInterface
     {
         $this->useDryRun = $dryRun;
         $this->apiKey = $apiKey;
-        if (!$client) {
-            $client = ($useMultiCurl ? new MultiCurl() : new Curl());
-        }
-        $client->setTimeout($timeout);
+        $psr7Factory = new Psr17Factory();
 
-        $this->browser = new Browser($client);
-        $this->browser->getClient()->setVerifyPeer(false);
+        if (!$client) {
+            $client = ($useMultiCurl ? new MultiCurl($psr7Factory) : new Curl());
+        }
+
+        $this->browser = new Browser($client, $psr7Factory);
         $this->logger = $logger;
+        $this->timeout = $timeout;
     }
 
     /**
@@ -167,5 +169,10 @@ class AndroidGCMNotification implements OSNotificationServiceInterface
     public function getResponses()
     {
         return $this->responses;
+    }
+
+    public function getName(): string
+    {
+        return 'rms_push_notifications.os.android.gcm';
     }
 }

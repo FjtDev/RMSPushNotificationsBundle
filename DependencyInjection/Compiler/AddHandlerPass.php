@@ -2,6 +2,7 @@
 
 namespace RMS\PushNotificationsBundle\DependencyInjection\Compiler;
 
+use RMS\PushNotificationsBundle\Service\Notifications;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
     Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\DependencyInjection\Definition,
@@ -19,9 +20,14 @@ class AddHandlerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $service = $container->getDefinition("rms_push_notifications");
+        if (!$container->hasDefinition('rms_push_notifications')) {
+            return;
+        }
+
+        $service = $container->getDefinition('rms_push_notifications');
 
         foreach ($container->findTaggedServiceIds("rms_push_notifications.handler") as $id => $attributes) {
+
             if (!isset($attributes[0]["osType"])) {
                 throw new \LogicException("Handler {$id} requires an osType attribute");
             }

@@ -13,10 +13,9 @@
     </parameters>
 
     <services>
-
         <!-- main notification service -->
-        <service id="rms_push_notifications" class="%rms_push_notifications.class%">
-        </service>
+        <service id="rms_push_notifications" class="RMS\PushNotificationsBundle\Service\Notifications" />
+        <service id="RMS\PushNotificationsBundle\Service\Notifications" alias="rms_push_notifications" />
 
         <service id="rms_push_notifications.event_listener" class="%rms_push_notifications.event_listener.class%">
             <tag name="kernel.event_listener" event="kernel.terminate" method="onKernelTerminate" />

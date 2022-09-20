@@ -406,6 +406,15 @@ class AppleNotification implements OSNotificationServiceInterface, EventListener
     }
 
     /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'rms_push_notifications.os.ios';
+    }
+
+
+    /**
      * Returns responses
      *
      * @return array

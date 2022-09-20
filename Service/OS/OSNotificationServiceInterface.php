@@ -13,4 +13,9 @@ interface OSNotificationServiceInterface
      * @return mixed
      */
     public function send(MessageInterface $message);
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
 }
